@@ -18,8 +18,8 @@ Layer 8 `FinSc-Thermodynamics` establishes pre-ordered state space structures:
 ```idris
 module Wiki.PreorderedMonoidSpec
 
-import Core.BoxInt
-import Math.Thermodynamics.PreorderedMonoid
+import Stage0.BoxInt
+import Stage0.PreorderedMonoid
 import Wiki.Generators
 import public QuickCheck
 

@@ -7,8 +7,8 @@ Documents and verifies discrete **Work/Heat Fluctuation Streams**, zero-allocati
 ```idris
 module Wiki.FluctuationStreamSpec
 
-import Math.Thermodynamics.FluctuationStream
-import Core.BoxInt
+import Stage0.FluctuationStream
+import Stage0.BoxInt
 import Data.Fuel
 
 %default total

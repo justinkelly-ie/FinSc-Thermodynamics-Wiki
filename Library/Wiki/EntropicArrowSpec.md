@@ -32,11 +32,11 @@ Layer 8 `FinSc-Thermodynamics` defines irreversible state transitions and free e
 ```idris
 module Wiki.EntropicArrowSpec
 
-import Core.BoxInt
-import Core.VexelMaxel
-import Core.Order.Preorder
-import Math.Thermodynamics.EntropicArrow
-import Math.OnSeq.FusedStream
+import Stage0.BoxInt
+import Stage1.VexelMaxel
+import Stage1.Order.Preorder
+import Stage1.Thermodynamics.EntropicArrow
+import Stage0.OnSeq.FusedStream
 import Data.Fuel
 import Wiki.Generators
 import public QuickCheck

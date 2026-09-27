@@ -1,9 +1,9 @@
 module Wiki.Main
 
-import Math.Thermodynamics.PreorderedMonoid
-import Math.Thermodynamics.EntropicArrow
-import Core.BoxInt
-import Core.Goh
+import Stage0.PreorderedMonoid
+import Stage1.Thermodynamics.EntropicArrow
+import Stage0.BoxInt
+import Stage1.Goh
 import Wiki.PreorderedMonoidSpec
 import Wiki.EntropicArrowSpec
 import Wiki.FluctuationStreamSpec
@@ -13,7 +13,7 @@ import Wiki.FluctuationStreamSpec
 0 prfPreorderRefl : (boxIntPreorder (MkBoxInt 5) (MkBoxInt 5) = True)
 prfPreorderRefl = verifyPreorderReflexivity 5
 
-0 prfEntropicArrow : (Math.Thermodynamics.EntropicArrow.verifyEntropicArrow = Refl)
+0 prfEntropicArrow : (Stage1.Thermodynamics.EntropicArrow.verifyEntropicArrow = Refl)
 prfEntropicArrow = Refl
 
 main : IO ()
