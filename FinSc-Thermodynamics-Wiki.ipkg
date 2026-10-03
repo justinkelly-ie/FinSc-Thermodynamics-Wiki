@@ -3,7 +3,7 @@ version = 0.1.0
 authors = "Justin Kelly"
 brief   = "Layer 8 Bounded Pre-ordered Monoids & Entropic Arrow Verification Suite"
 
-depends = FinSc-Multiset-Core, FinSc-Multiset-Transform, FinSc-Thermodynamics, base, idris2-QuickCheck, linear
+depends = FinSc-Multiset, FinSc-Metric-Substrate, FinSc-Phase-Unfolding, FinSc-Thermodynamics, base, idris2-QuickCheck, linear
 sourcedir = "Library"
 
 modules = Wiki.EntropicArrowSpec,
