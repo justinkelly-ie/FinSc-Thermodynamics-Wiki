@@ -8,13 +8,21 @@ import Wiki.PreorderedMonoidSpec
 import Wiki.EntropicArrowSpec
 import Wiki.FluctuationStreamSpec
 
+import Language.Reflection
+
 %default total
 
-0 prfPreorderRefl : (boxIntPreorder (MkBoxInt 5) (MkBoxInt 5) = True)
-prfPreorderRefl = verifyPreorderReflexivity 5
+public export
+%macro
+auditInvariant : (prop : Bool) -> Elab (prop = True)
+auditInvariant True = pure Refl
+auditInvariant False = fail "Compile-time invariant audit failed!"
 
-0 prfEntropicArrow : (Stage1.Thermodynamics.EntropicArrow.verifyEntropicArrow = Refl)
-prfEntropicArrow = Refl
+0 prfPreorderRefl : (boxIntPreorder (MkBoxInt 5) (MkBoxInt 5) = True)
+prfPreorderRefl = auditInvariant (boxIntPreorder (MkBoxInt 5) (MkBoxInt 5))
+
+0 prfEntropicArrow : (isFreeEnergyMinimizing (thermoVexel (intToBoxInt 100) (intToBoxInt 10) (intToBoxInt 2)) (thermoVexel (intToBoxInt 100) (intToBoxInt 10) (intToBoxInt 5)) = True)
+prfEntropicArrow = auditInvariant (isFreeEnergyMinimizing (thermoVexel (intToBoxInt 100) (intToBoxInt 10) (intToBoxInt 2)) (thermoVexel (intToBoxInt 100) (intToBoxInt 10) (intToBoxInt 5)))
 
 main : IO ()
 main = do

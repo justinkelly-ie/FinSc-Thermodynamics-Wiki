@@ -61,17 +61,11 @@ record VerifiedThermodynamicState where
   entropyAfter  : Nat
   0 secondLawPrf : SecondLawEntropyWitness entropyBefore entropyAfter
 
-||| $O(1)$ allocation deforested entropy production stream transducer using fusedHylomorphism
-public export covering
+||| $O(1)$ allocation deforested entropy production stream transducer using foldStreamNat
+public export
 fusedEntropyProductionStream : Fuel -> List (Nat, Nat) -> Nat
-fusedEntropyProductionStream f items =
-  fusedHylomorphism f
-    (\st => case st of
-              [] => Done
-              (s1, s2) :: rest => Yield (s1 + s2) rest)
-    (\val, acc => val + acc)
-    0
-    items
+fusedEntropyProductionStream _ items =
+  foldStreamNat (length items) (\acc, (s1, s2) => acc + s1 + s2) 0 (stream items)
 
 ||| 1. Discrete Helmholtz Free Energy Equation: F = U - T * S
 public export

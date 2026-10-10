@@ -14,7 +14,7 @@ import Data.Fuel
 %default total
 
 ||| Property 1: Work Fluctuation Stream Total Work Hylomorphism Equivalence
-public export covering
+public export
 prop_totalWorkHylomorphismEquivalence : Bool
 prop_totalWorkHylomorphismEquivalence =
   let works = [intToBoxInt 10, intToBoxInt 20, intToBoxInt 30]
@@ -22,7 +22,7 @@ prop_totalWorkHylomorphismEquivalence =
   in unwrapBox totW == 60
 
 ||| Property 2: Jarzynski Linear Bound Monotonicity
-public export covering
+public export
 prop_jarzynskiBoundMonotonicity : Bool
 prop_jarzynskiBoundMonotonicity =
   let works = [intToBoxInt 1, intToBoxInt 2, intToBoxInt 3]
@@ -31,7 +31,7 @@ prop_jarzynskiBoundMonotonicity =
   in unwrapBox jBound1 == -3 && unwrapBox jBound2 == -9
 
 ||| Direct Suite Execution for Fluctuation Stream Specification
-public export covering
+public export
 auditFluctuationStreamSpecProof : IO Bool
 auditFluctuationStreamSpecProof = do
   let p1 = prop_totalWorkHylomorphismEquivalence
