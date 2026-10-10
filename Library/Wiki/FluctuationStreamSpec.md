@@ -30,11 +30,22 @@ prop_jarzynskiBoundMonotonicity =
       jBound2 = fusedJarzynskiLinearBound (limit 100) (intToBoxInt 2) works
   in unwrapBox jBound1 == -3 && unwrapBox jBound2 == -9
 
+||| Property 3: Dynamic Chromogeometric Landauer Bound Across Cosmological Epochs
+public export
+prop_dynamicLandauerBoundEpochScaling : Bool
+prop_dynamicLandauerBoundEpochScaling =
+  let dissSteps = [(1, 30), (2, 60), (3, 100)]
+      fuel = limit 10
+      pEpoch0 = fusedValidateEpochLandauerStream fuel 0 dissSteps
+  in pEpoch0 && auditFluctuationStreamProof
+
 ||| Direct Suite Execution for Fluctuation Stream Specification
 public export
 auditFluctuationStreamSpecProof : IO Bool
 auditFluctuationStreamSpecProof = do
   let p1 = prop_totalWorkHylomorphismEquivalence
   let p2 = prop_jarzynskiBoundMonotonicity
-  pure (p1 && p2)
+  let p3 = prop_dynamicLandauerBoundEpochScaling
+  pure (p1 && p2 && p3)
 ```
+
