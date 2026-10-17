@@ -9,6 +9,7 @@ module Wiki.FluctuationStreamSpec
 
 import Stage0.FluctuationStream
 import Stage0.BoxInt
+import Stage0.StructuralFuel
 import Data.Fuel
 
 %default total
@@ -18,7 +19,7 @@ public export
 prop_totalWorkHylomorphismEquivalence : Bool
 prop_totalWorkHylomorphismEquivalence =
   let works = [intToBoxInt 10, intToBoxInt 20, intToBoxInt 30]
-      totW = fusedTotalWork (limit 100) works
+      totW = fusedTotalWorkFuelModel parabolicGohFuelModel works
   in unwrapBox totW == 60
 
 ||| Property 2: Jarzynski Linear Bound Monotonicity
@@ -26,8 +27,8 @@ public export
 prop_jarzynskiBoundMonotonicity : Bool
 prop_jarzynskiBoundMonotonicity =
   let works = [intToBoxInt 1, intToBoxInt 2, intToBoxInt 3]
-      jBound1 = fusedJarzynskiLinearBound (limit 100) (intToBoxInt 1) works
-      jBound2 = fusedJarzynskiLinearBound (limit 100) (intToBoxInt 2) works
+      jBound1 = fusedJarzynskiLinearBoundFuelModel parabolicGohFuelModel (intToBoxInt 1) works
+      jBound2 = fusedJarzynskiLinearBoundFuelModel parabolicGohFuelModel (intToBoxInt 2) works
   in unwrapBox jBound1 == -3 && unwrapBox jBound2 == -9
 
 ||| Property 3: Dynamic Chromogeometric Landauer Bound Across Cosmological Epochs

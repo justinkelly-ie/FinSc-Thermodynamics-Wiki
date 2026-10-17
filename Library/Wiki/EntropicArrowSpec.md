@@ -37,6 +37,7 @@ import Stage1.VexelMaxel
 import Stage1.Order.Preorder
 import Stage1.Thermodynamics.EntropicArrow
 import Stage0.OnSeq.FusedStream
+import Stage0.StructuralFuel
 import Data.Fuel
 import Wiki.Generators
 import public QuickCheck
@@ -61,11 +62,11 @@ record VerifiedThermodynamicState where
   entropyAfter  : Nat
   0 secondLawPrf : SecondLawEntropyWitness entropyBefore entropyAfter
 
-||| $O(1)$ allocation deforested entropy production stream transducer using foldStreamNat
+||| $O(1)$ allocation deforested entropy production stream transducer using foldStreamNat and model-indexed GohFuel
 public export
-fusedEntropyProductionStream : Fuel -> List (Nat, Nat) -> Nat
-fusedEntropyProductionStream _ items =
-  foldStreamNat (length items) (\acc, (s1, s2) => acc + s1 + s2) 0 (stream items)
+fusedEntropyProductionStream : GohFuel cap -> List (Nat, Nat) -> Nat
+fusedEntropyProductionStream fuel items =
+  foldStreamNat (gohSteps fuel) (\acc, (s1, s2) => acc + s1 + s2) 0 (stream items)
 
 ||| 1. Discrete Helmholtz Free Energy Equation: F = U - T * S
 public export
@@ -94,6 +95,6 @@ auditEntropicArrowSpecProof : IO Bool
 auditEntropicArrowSpecProof = do
   let r1 = qc3 prop_freeEnergyEquation
   let r2 = qc4 prop_isothermalEntropyGrowthMinimizesFreeEnergy
-  let streamSum = fusedEntropyProductionStream (limit 100) [(2, 5), (10, 20)]
+  let streamSum = fusedEntropyProductionStream parabolicGohFuelModel [(2, 5), (10, 20)]
   pure (r1.pass == Just True && r2.pass == Just True && streamSum == 37)
 ```
