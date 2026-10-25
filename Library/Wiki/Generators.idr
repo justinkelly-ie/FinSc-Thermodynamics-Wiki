@@ -2,7 +2,7 @@ module Wiki.Generators
 
 import public QuickCheck
 import Stage0.BoxInt
-import Stage1.VexelMaxel
+import Stage1.Carrier.Vexel
 import Stage1.Thermodynamics.EntropicArrow
 
 %default total
