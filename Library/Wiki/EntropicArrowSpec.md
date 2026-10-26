@@ -33,7 +33,7 @@ Layer 8 `FinSc-Thermodynamics` defines irreversible state transitions and free e
 module Wiki.EntropicArrowSpec
 
 import Stage0.BoxInt
-import Stage1.Carrier.Vexel
+import Stage1.Basis.Coordinate
 import Stage1.Order.Preorder
 import Stage1.Thermodynamics.EntropicArrow
 import Stage0.OnSeq.FusedStream
