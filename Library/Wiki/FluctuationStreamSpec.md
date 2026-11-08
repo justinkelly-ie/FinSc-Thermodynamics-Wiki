@@ -40,6 +40,27 @@ prop_dynamicLandauerBoundEpochScaling =
       pEpoch0 = fusedValidateEpochLandauerStream fuel 0 dissSteps
   in pEpoch0 && auditFluctuationStreamProof
 
+||| Property 4: Concurrent System/Bath Fluctuation Stream Jarzynski Bound
+public export
+prop_concurrentSystemBathFluctuations : Bool
+prop_concurrentSystemBathFluctuations =
+  let wStrm = stream [intToBoxInt 1, intToBoxInt 2, intToBoxInt 3]
+      qStrm = stream [intToBoxInt 0, intToBoxInt 1, intToBoxInt 2]
+      flStrm = zipSystemBathFluctuations wStrm qStrm
+      totW = fusedTotalWorkStreamNat 30 flStrm
+      jBound = fusedJarzynskiLinearBoundStreamNat 30 (intToBoxInt 1) flStrm
+  in totW == intToBoxInt 6 && jBound == intToBoxInt (-3)
+
+||| Property 5: Dynamic Landauer Streaming Bit Erasure
+public export
+prop_streamingLandauerBitErasure : Bool
+prop_streamingLandauerBitErasure =
+  let bitStrm = stream [the Nat 1, the Nat 2, the Nat 3]
+      dissStrm = streamLandauerBitErasure 27 bitStrm
+      totHeat = fusedEntropyDissipationStreamNatDirect 30 dissStrm
+      totBits = fusedComputeTotalErasedBitsNatDirect 30 dissStrm
+  in totBits == 6 && totHeat == 162
+
 ||| Direct Suite Execution for Fluctuation Stream Specification
 public export
 auditFluctuationStreamSpecProof : IO Bool
@@ -47,6 +68,8 @@ auditFluctuationStreamSpecProof = do
   let p1 = prop_totalWorkHylomorphismEquivalence
   let p2 = prop_jarzynskiBoundMonotonicity
   let p3 = prop_dynamicLandauerBoundEpochScaling
-  pure (p1 && p2 && p3)
+  let p4 = prop_concurrentSystemBathFluctuations
+  let p5 = prop_streamingLandauerBitErasure
+  pure (p1 && p2 && p3 && p4 && p5)
 ```
 

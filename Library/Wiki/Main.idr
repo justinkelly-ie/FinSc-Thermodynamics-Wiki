@@ -2,6 +2,7 @@ module Wiki.Main
 
 import Stage0.PreorderedMonoid
 import Stage1.Thermodynamics.EntropicArrow
+import Stage1.Thermodynamics.FreeEnergyPoly
 import Stage0.BoxInt
 import Stage1.Goh
 import Wiki.PreorderedMonoidSpec
@@ -31,6 +32,8 @@ main = do
   putStrLn "========================================================"
   putStrLn "  [TEST 1] Poset Pre-order Reflexivity Law (a <= a): PASSED ✅"
   putStrLn "  [TEST 2] Irreversible Arrow of Time & Free Energy Minimization: PASSED ✅"
+  putStrLn $ "  [TEST 2b] Certified Helmholtz Free Energy Polynomial Equivalence: " ++
+             (if auditFreeEnergyPolyEquivalenceProof then "PASSED ✅" else "FAILED ❌")
   putStrLn "--------------------------------------------------------"
   putStrLn " 🔥 IDRIS2-QUICKCHECK GENERATIVE PROPERTY SUITES 🔥"
   putStrLn "--------------------------------------------------------"
